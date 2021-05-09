@@ -48,6 +48,9 @@ static const struct option_wrapper long_options[] = {
 	{{"unload",      no_argument,		NULL, 'U' },
 	 "Unload XDP program instead of loading"},
 
+	{{"reuse-maps",  no_argument,		NULL, 'M' },
+	 "Reuse pinned maps"},
+
 	{{"quiet",       no_argument,		NULL, 'q' },
 	 "Quiet mode (no output)"},
 
@@ -114,7 +117,7 @@ int pin_maps_in_bpf_object(struct bpf_object *bpf_obj, const char *subdir)
 int main(int argc, char **argv)
 {
 	struct bpf_object *bpf_obj;
-	int err;
+	int err, len;
 
 	struct config cfg = {
 		.xdp_flags = XDP_FLAGS_UPDATE_IF_NOEXIST | XDP_FLAGS_DRV_MODE,
@@ -133,10 +136,16 @@ int main(int argc, char **argv)
 		return EXIT_FAIL_OPTION;
 	}
 	if (cfg.do_unload) {
+		if (!cfg.reuse_maps) {
+		}
 		/* TODO: Miss unpin of maps on unload */
 		return xdp_link_detach(cfg.ifindex, cfg.xdp_flags, 0);
 	}
-
+    len = snprintf(cfg.pin_dir, PATH_MAX, "%s/%s", pin_basedir, cfg.ifname);
+	if (len<0) {
+		fprintf(stderr, "ERR: creating pin dirname\n");
+		return EXIT_FAIL_OPTION;
+	}
 	bpf_obj = load_bpf_and_xdp_attach(&cfg);
 	if (!bpf_obj)
 		return EXIT_FAIL_BPF;
@@ -149,10 +158,12 @@ int main(int argc, char **argv)
 	}
 
 	/* Use the --dev name as subdir for exporting/pinning maps */
-	err = pin_maps_in_bpf_object(bpf_obj, cfg.ifname);
-	if (err) {
-		fprintf(stderr, "ERR: pinning maps\n");
-		return err;
+	if(!cfg.reuse_maps){
+		err = pin_maps_in_bpf_object(bpf_obj, cfg.ifname);
+		if (err) {
+			fprintf(stderr, "ERR: pinning maps\n");
+			return err;
+		}
 	}
 
 	return EXIT_OK;

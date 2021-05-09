@@ -1,0 +1,60 @@
+make[1]: Entering directory '/data/xdp-tutorial/libbpf/src'
+mkdir -p ./staticobjs
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c bpf.c -o staticobjs/bpf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c btf.c -o staticobjs/btf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c libbpf.c -o staticobjs/libbpf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c libbpf_errno.c -o staticobjs/libbpf_errno.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c netlink.c -o staticobjs/netlink.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c nlattr.c -o staticobjs/nlattr.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c str_error.c -o staticobjs/str_error.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c libbpf_probes.c -o staticobjs/libbpf_probes.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c bpf_prog_linfo.c -o staticobjs/bpf_prog_linfo.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c xsk.c -o staticobjs/xsk.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c btf_dump.c -o staticobjs/btf_dump.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64   -c hashmap.c -o staticobjs/hashmap.o
+ar rcs libbpf.a staticobjs/bpf.o staticobjs/btf.o staticobjs/libbpf.o staticobjs/libbpf_errno.o staticobjs/netlink.o staticobjs/nlattr.o staticobjs/str_error.o staticobjs/libbpf_probes.o staticobjs/bpf_prog_linfo.o staticobjs/xsk.o staticobjs/btf_dump.o staticobjs/hashmap.o
+mkdir -p ./sharedobjs
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c bpf.c -o sharedobjs/bpf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c btf.c -o sharedobjs/btf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c libbpf.c -o sharedobjs/libbpf.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c libbpf_errno.c -o sharedobjs/libbpf_errno.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c netlink.c -o sharedobjs/netlink.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c nlattr.c -o sharedobjs/nlattr.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c str_error.c -o sharedobjs/str_error.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c libbpf_probes.c -o sharedobjs/libbpf_probes.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c bpf_prog_linfo.c -o sharedobjs/bpf_prog_linfo.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c xsk.c -o sharedobjs/xsk.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c btf_dump.c -o sharedobjs/btf_dump.o
+cc -I. -I../include -I../include/uapi -g -O2 -Werror -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -fPIC -fvisibility=hidden -DSHARED  -c hashmap.c -o sharedobjs/hashmap.o
+cc -shared -Wl,--version-script=libbpf.map \
+	      -Wl,-soname,libbpf.so.0 \
+	      sharedobjs/bpf.o sharedobjs/btf.o sharedobjs/libbpf.o sharedobjs/libbpf_errno.o sharedobjs/netlink.o sharedobjs/nlattr.o sharedobjs/str_error.o sharedobjs/libbpf_probes.o sharedobjs/bpf_prog_linfo.o sharedobjs/xsk.o sharedobjs/btf_dump.o sharedobjs/hashmap.o  -lelf  -o libbpf.so.0.0.6
+ln -sf libbpf.so.0.0.6 libbpf.so.0
+ln -sf libbpf.so.0 libbpf.so
+sed -e "s|@PREFIX@|/usr|" \
+	-e "s|@LIBDIR@|/usr/lib64|" \
+	-e "s|@VERSION@|0.0.6|" \
+	< libbpf.pc.template > libbpf.pc
+make[1]: Leaving directory '/data/xdp-tutorial/libbpf/src'
+make[1]: Entering directory '/data/xdp-tutorial/libbpf/src'
+if [ ! -d 'build/usr/include/bpf' ]; then install -d -m 755 'build/usr/include/bpf'; fi; install bpf.h libbpf.h btf.h xsk.h libbpf_util.h bpf_helpers.h bpf_helper_defs.h bpf_tracing.h bpf_endian.h bpf_core_read.h -m 644 'build/usr/include/bpf'
+make[1]: Leaving directory '/data/xdp-tutorial/libbpf/src'
+make -C ../common/
+make[1]: Entering directory '/data/xdp-tutorial/common'
+gcc -g -Wall -I../libbpf/src//build/usr/include/  -I../headers -c -o common_params.o common_params.c
+gcc -g -Wall -I../libbpf/src//build/usr/include/  -I../headers -c -o common_user_bpf_xdp.o common_user_bpf_xdp.c
+gcc -g -Wall -I../libbpf/src//build/usr/include/  -I../headers -c -o common_libbpf.o common_libbpf.c
+make[1]: Leaving directory '/data/xdp-tutorial/common'
+cc -Wall -I../libbpf/src//build/usr/include/ -g -I../headers/ -L../libbpf/src/ -o xdp_load_and_stats ../common//common_params.o ../common//common_user_bpf_xdp.o \
+ xdp_load_and_stats.c -l:libbpf.a -lelf 
+clang -S \
+    -target bpf \
+    -D __BPF_TRACING__ \
+    -I../libbpf/src//build/usr/include/ -I../headers/ \
+    -Wall \
+    -Wno-unused-value \
+    -Wno-pointer-sign \
+    -Wno-compare-distinct-pointer-types \
+    -Werror \
+    -g -O2 -emit-llvm -c  -o xdp_prog_kern.ll xdp_prog_kern.c
+llc -march=bpf -filetype=obj -o xdp_prog_kern.o xdp_prog_kern.ll
